@@ -1,0 +1,73 @@
+<!-- Bootstrap CSS (include this in your index.html head) -->
+<div class="container my-5">
+  <!-- Card Start -->
+  <div class="card shadow w-100 p-3">
+
+    <!-- Heading Section -->
+    <div class="card-header bg-info text-white">
+      <h4>Manage Category</h4>
+    </div>
+
+    <!-- Form Section -->
+    <div class="card-body">
+      <form #myForm="ngForm" class="row g-4 align-items-end">
+        <!-- Category Name -->
+        <div class="form-group col-md-4">
+          <label for="categoryName" class="form-label">Category Name</label>
+          <input type="text" class="form-control" id="categoryName" placeholder="Enter Category" name="CategoryName"
+            [(ngModel)]="Category.CategoryName">
+        </div>
+
+        <!-- Status Dropdown -->
+        <div class="col-md-4">
+          <label for="statusSelect" class="form-label">Select Status</label>
+          <select class="form-select" name="Status" [(ngModel)]="Category.Status">
+            <option *ngFor="let status of StatusList" [value]="status.Key">
+              {{ status.Value }}
+            </option>
+          </select>
+          
+        </div>
+
+
+
+        <!-- Submit Button -->
+        <div class="col-md-4 d-grid">
+          <button type="submit" class="btn btn-success" (click)="saveCategory()">Submit</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Table Section -->
+    <div class="card-footer bg-light">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped mt-3">
+          <thead class="table-dark">
+            <tr>
+              <th>Serial No.</th>
+              <th>Category Name</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of CategoryList; let i = index">
+              <td>{{ i + 1 }}</td> <!-- Serial number -->
+              <td>{{ item.CategoryName }}</td>
+              <td>{{ item.StatusName }}</td>
+              <td class="d-flex">
+                
+                 <a class="btn btn-sm btn-primary" (click)="editCategory(item)">Edit</a> &nbsp; &nbsp;
+                  <a class="btn btn-sm btn-danger" (click)="deleteCategory(item)">Delete</a> 
+                
+              </td>
+            </tr>
+            <!-- More rows dynamically here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
