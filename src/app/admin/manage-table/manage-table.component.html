@@ -1,0 +1,75 @@
+<div class="container mt-4">
+     <h2 class="mb-3">Manage Tables</h2>
+   
+     <form #myForm="ngForm" (ngSubmit)="saveTable()" class="card p-4 shadow-sm">
+       <div class="row mb-3">
+         <div class="col-md-6">
+           <label for="TableName" class="form-label">Table Name <span class="text-danger">*</span></label>
+           <input
+             type="text"
+             id="TableName"
+             name="TableName"
+             [(ngModel)]="TableRest.TableName"
+             required
+             class="form-control"
+           />
+           <div *ngIf="myForm.submitted && myForm.controls['TableName']?.invalid" class="text-danger mt-1">
+             Table Name is required
+           </div>
+         </div>
+   
+         <div class="col-md-6">
+           <label for="Status" class="form-label">Status <span class="text-danger">*</span></label>
+           <select
+             id="Status"
+             name="Status"
+             [(ngModel)]="TableRest.Status"
+             class="form-select"
+             required
+           >
+             <option value="">Select Status</option>
+             <option *ngFor="let status of StatusList" [value]="status.Key">{{ status.Value }}</option>
+           </select>
+           <div *ngIf="myForm.submitted && myForm.controls['Status']?.invalid" class="text-danger mt-1">
+             Status is required
+           </div>
+         </div>
+       </div>
+   
+       <div class="d-flex justify-content-between">
+         <button type="submit" class="btn btn-success">
+           {{ TableRest.TableId ? 'Update Table' : 'Add Table' }}
+         </button>
+         <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+       </div>
+     </form>
+   
+     <div class="mt-5">
+       <h4>Table List</h4>
+       <table class="table table-bordered table-hover mt-3">
+         <thead class="table-dark">
+           <tr>
+             <th>#</th>
+             <th>Table Name</th>
+             <th>Status</th>
+             <th>Actions</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let table of TableList; let i = index">
+             <td>{{ i + 1 }}</td>
+             <td>{{ table.TableName }}</td>
+             <td>{{ table.Status }}</td>
+             <td>
+               <button class="btn btn-sm btn-primary me-2" (click)="editTable(table)">Edit</button>
+               <button class="btn btn-sm btn-danger" (click)="deleteTable(table)">Delete</button>
+             </td>
+           </tr>
+           <tr *ngIf="TableList.length === 0">
+             <td colspan="4" class="text-center">No records found</td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+   </div>
+   

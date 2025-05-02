@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgForm, FormsModule, } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../utils/api.service';
-import { log } from 'console';
 import { ConstantData } from '../../utils/constant-data';
 
 
@@ -40,9 +39,24 @@ export class ManageCategoryComponent {
           this.Category.Status = activeStatus.Key;
         }
       }
-
-
     })
+  }
+
+  getCategoryList() {
+    var obj = {}
+
+    this.apiService.getCategoryList(obj).subscribe(r1 => {
+      let response = r1 as any
+      if (response.Message == ConstantData.SuccessMessage) {
+        this.CategoryList = response.CategoryList;
+      } else {
+        alert(response.Message)
+      }
+
+    }, (err => {
+      alert("Error while fetching records")
+
+    }))
   }
 
   saveCategory() {
@@ -68,24 +82,6 @@ export class ManageCategoryComponent {
       alert("Error occured while submitting data")
     }))
   }
-
-  getCategoryList() {
-    var obj = {}
-
-    this.apiService.getCategoryList(obj).subscribe(r1 => {
-      let response = r1 as any
-      if (response.Message == ConstantData.SuccessMessage) {
-        this.CategoryList = response.CategoryList;
-      } else {
-        alert(response.Message)
-      }
-
-    }, (err => {
-      alert("Error while fetching records")
-
-    }))
-  }
-
 
   deleteCategory(obj: any) {
     if (confirm("Are your sure you want to delete this recored")) {
@@ -117,15 +113,5 @@ export class ManageCategoryComponent {
       this.myForm.control.markAsUntouched();
     }
   }
-
-
-
-
-
-
-
-
-
-
 
 }
