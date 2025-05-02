@@ -13,17 +13,27 @@ export class ApiService {
   getCategoryList(object: any) {
     return this.http.post(this.apiUrl + 'Category/CategoryList', object);
   }
-
   saveCategory(obj: any) {
     return this.http.post(this.apiUrl + "Category/SaveCategory", obj)
   }
   deleteCategory(obj: any) {
     return this.http.post(this.apiUrl + "Category/DeleteCategory", obj)
   }
+
   getStatusList(obj: any) {
     return this.http.post(this.apiUrl + "enum/StatusList", obj)
   }
 
-  
+  getTableList(obj: any) {
+    return this.http.post(this.apiUrl + "Table/TableList", obj)
+  }
+  saveTable(obj: any) {
+    return this.http.post(this.apiUrl + "Table/SaveTable", obj)
+  }
+  deleteTable(obj: any) {
+    return this.http.post(this.apiUrl + "Table/DeleteTable", obj)
+  }
+
+
 }
 

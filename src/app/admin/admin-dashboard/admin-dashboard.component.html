@@ -1,4 +1,72 @@
-<div class="container mt-4">
-     <p>admin-dashboard works!</p>
-</div>
-
+<div class="container my-5">
+     <h2 class="mb-4 text-center">Restaurant Dashboard</h2>
+ 
+     <!-- Summary Cards -->
+     <div class="row text-center mb-5">
+       <div class="col-md-4 mb-3">
+         <div class="card shadow-sm">
+           <div class="card-body">
+             <h5 class="card-title">Total Orders</h5>
+             <p class="display-6 fw-bold">245</p>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-4 mb-3">
+         <div class="card shadow-sm">
+           <div class="card-body">
+             <h5 class="card-title">Revenue</h5>
+             <p class="display-6 fw-bold">₹48,750</p>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-4 mb-3">
+         <div class="card shadow-sm">
+           <div class="card-body">
+             <h5 class="card-title">Customers</h5>
+             <p class="display-6 fw-bold">182</p>
+           </div>
+         </div>
+       </div>
+     </div>
+ 
+     <!-- Recent Orders Table -->
+     <div class="card shadow-sm">
+       <div class="card-body">
+         <h5 class="card-title mb-4">Recent Orders</h5>
+         <table class="table table-striped">
+           <thead class="table-dark">
+             <tr>
+               <th>#</th>
+               <th>Customer</th>
+               <th>Item</th>
+               <th>Status</th>
+               <th>Total</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>1</td>
+               <td>Raj Mehta</td>
+               <td>Paneer Butter Masala</td>
+               <td><span class="badge bg-success">Completed</span></td>
+               <td>₹320</td>
+             </tr>
+             <tr>
+               <td>2</td>
+               <td>Neha Verma</td>
+               <td>Veg Biryani</td>
+               <td><span class="badge bg-warning text-dark">Pending</span></td>
+               <td>₹250</td>
+             </tr>
+             <tr>
+               <td>3</td>
+               <td>Arjun Singh</td>
+               <td>Chicken Tikka</td>
+               <td><span class="badge bg-danger">Cancelled</span></td>
+               <td>₹400</td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
