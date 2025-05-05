@@ -8,7 +8,7 @@ import { log } from 'console';
 
 @Component({
   selector: 'app-manage-table',
-  standalone: true,
+  // standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './manage-table.component.html',
   styleUrls: ['./manage-table.component.css'],
@@ -35,24 +35,33 @@ export class ManageTableComponent {
 
   getStatusList() {
     this.apiService.getStatusList({}).subscribe((res: any) => {
-      this.StatusList = res.StatusList || [];
-      // console.log("StatusList:", this.StatusList);
-
+      this.StatusList = res.StatusList;
+      console.log("this is status list", res.StatusList);
       if (!this.TableRest.Status) {
-        const active = this.StatusList.find(x => x.Value === 'Active');
-        if (active) this.TableRest.Status = active.Key;
+        const activeStatus = this.StatusList.find(x => x.Value === 'Active');
+        if (activeStatus) {
+          this.TableRest.Status = activeStatus.Key;
+        }
       }
+      this.getTableList();
     });
   }
+  
 
   getTableList() {
     this.apiService.getTableList({}).subscribe(
       (res: any) => {
         console.log("getTableList response:", res.message);
         if (res.message === ConstantData.SuccessMessage) {
-          this.TableList = res.TableRests;
-          console.log("TableList assigned:", res.TableRests);
-
+          this.TableList = res.TableRests.map((table: any) => {
+            const statusObj = this.StatusList.find(s => s.Key === table.Status);
+            return {
+              ...table,
+              StatusText: statusObj ? statusObj.Value : table.Status
+            };
+          });
+  
+          console.log("Mapped TableList:", this.TableList);
           this.cdr.detectChanges();
         } else {
           alert(res.Message);
@@ -64,24 +73,23 @@ export class ManageTableComponent {
       }
     );
   }
+  
 
   saveTable() {
     this.myForm.control.markAllAsTouched();
-
     if (this.myForm.invalid) {
       alert("Fill all the required fields !!");
       return;
     }
-
     this.apiService.saveTable(this.TableRest).subscribe(
       (res: any) => {
         if (res.message === ConstantData.SuccessMessage) {
           alert(this.TableRest.TableId ? "Table Updated successfully" : "Table Added successfully");
+          this.resetForm();
           this.getTableList();
         } else {
           alert("user alread exist");
         }
-
       },
       err => {
         console.error("Save error:", err);
@@ -118,9 +126,13 @@ export class ManageTableComponent {
 
   resetForm() {
     this.TableRest = {};
+
     if (this.myForm) {
-      this.myForm.control.markAsPristine();
-      this.myForm.control.markAsUntouched();
+      this.myForm.resetForm(); 
+    }
+    const activeStatus = this.StatusList.find(x => x.Value === 'Active');
+    if (activeStatus) {
+      this.TableRest.Status = activeStatus.Key;
     }
   }
 }
