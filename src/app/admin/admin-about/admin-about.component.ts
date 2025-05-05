@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-admin-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,],
   templateUrl: './admin-about.component.html',
   styleUrl: './admin-about.component.css',
-  // changedetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class AdminAboutComponent {
 

@@ -59,7 +59,7 @@
            <tr *ngFor="let table of TableList; let i = index">
              <td>{{ i + 1 }}</td>
              <td>{{ table.TableName }}</td>
-             <td>{{ table.StatusText }}</td>
+             <td>{{ table.Status }}</td>
              <td>
                <button class="btn btn-sm btn-primary me-2" (click)="editTable(table)">Edit</button>
                <button class="btn btn-sm btn-danger" (click)="deleteTable(table)">Delete</button>
